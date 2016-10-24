@@ -42,6 +42,16 @@
         circles.push(path);
       }
     }
+    
+    function onClick() {
+        data[a].sound.play();
+        point.x = Math.random() * xmax;
+        point.y = Math.random() * ymax;
+        r = Math.random() * 500;
+        path = new Path.Circle(point, r);
+        path.fillColor = data[event.key].color;
+        circles.push(path);
+    }
 
     </script>
   </head>
