@@ -2,11 +2,50 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello World</title>
-    <link rel="stylesheet" href="master.css">
+    <title></title>
+    <link rel="stylesheet" href="master.css" media="screen" title="no title">
+    <script type="text/javascript" src="paper.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.1/howler.core.min.js"></script>
+    <script type="text/javascript" src="data.js"></script>
+    <script type="text/paperscript" canvas="myCanvas">
 
+    var sound = new Howl({
+      src: ['./sounds/bubbles.mp3']
+    });
+
+    var xmax = view.size.width;
+    var ymax = view.size.height;
+
+    var circles = [];
+    var point = new Point(0 ,0);
+    var r = 0;
+
+    function onFrame(event) {
+      for(var i = 0; i < circles.length; i++) {
+        circles[i].fillColor.hue += 1;
+        circles[i].scale(.92);
+        if(circles[i].area < 1) {
+          circles[i].remove();
+          circles.splice(i, 1);
+        }
+      }
+    }
+
+    function onKeyDown(event) {
+      if(data[event.key]) {
+        data[event.key].sound.play();
+        point.x = Math.random() * xmax;
+        point.y = Math.random() * ymax;
+        r = Math.random() * 500;
+        path = new Path.Circle(point, r);
+        path.fillColor = data[event.key].color;
+        circles.push(path);
+      }
+    }
+
+    </script>
   </head>
   <body>
-    <h1>Hello, World!</h1>
+    <canvas id="myCanvas" resize></canvas>
   </body>
 </html>
