@@ -43,14 +43,13 @@
       }
     }
     
-    function onClick() {
-        data[a].sound.play();
-        point.x = Math.random() * xmax;
-        point.y = Math.random() * ymax;
-        r = Math.random() * 500;
-        path = new Path.Circle(point, r);
-        path.fillColor = data[event.key].color;
-        circles.push(path);
+      view.onClick = function(event) {
+      r = Math.random() * 500;
+      sound.play();
+      path = new Path.Circle(event.point, r);
+      path.fillColor = "purple";
+      path.fillColor.hue += r;
+      circles.push(path);
     }
 
     </script>
